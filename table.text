@@ -1,0 +1,419 @@
+faculty: facultyName
+department: departmentName
+roll number: studentId
+register number: registerId
+email: email
+password: password
+confirm password: confirmPassword
+
+
+
+CREATE TABLE `universities` (
+    `university_id` VARCHAR(10) PRIMARY KEY,
+    `name` VARCHAR(255) NOT NULL,
+    `location` VARCHAR(255) DEFAULT NULL,
+    `established_year` INT DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `universities` (`university_id`, `name`, `location`, `established_year`)
+VALUES ('U001', 'JKKINU', 'Trishal, Mymensingh', 2006);
+
+
+
+
+CREATE TABLE `faculties` (
+    `faculty_id` VARCHAR(10) PRIMARY KEY,
+    `name` VARCHAR(255) NOT NULL,
+    `university_id` VARCHAR(10) DEFAULT NULL,
+    FOREIGN KEY (`university_id`) REFERENCES `universities`(`university_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `faculties` (`faculty_id`, `name`, `university_id`) VALUES
+('F001', 'Faculty of Science and Engineering', 'U001'),
+('F002', 'Faculty of Social Science', 'U001'),
+('F003', 'Faculty of Business Administration', 'U001'),
+('F004', 'Faculty of Fine Arts', 'U001'),
+('F005', 'Faculty of Arts', 'U001'),
+('F006', 'Faculty of Law', 'U001');
+
+
+
+
+
+CREATE TABLE `departments` (
+    `department_id` VARCHAR(10) PRIMARY KEY,
+    `name` VARCHAR(255) NOT NULL,
+    `faculty_id` VARCHAR(10),
+    FOREIGN KEY (`faculty_id`) REFERENCES `faculties`(`faculty_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- Faculty of Science and Engineering
+INSERT INTO `departments` (`department_id`, `name`, `faculty_id`) VALUES
+('D001', 'Computer Science and Engineering', 'F001'),
+('D002', 'Electrical and Electronic Engineering', 'F001'),
+('D003', 'Environmental Science and Engineering', 'F001'),
+('D004', 'Statistics', 'F001');
+
+-- Faculty of Social Science
+INSERT INTO `departments` (`department_id`, `name`, `faculty_id`) VALUES
+('D010', 'Economics', 'F002'),
+('D011', 'Public Administration and Governance Studies', 'F002'),
+('D012', 'Folklore', 'F002'),
+('D013', 'Anthropology', 'F002'),
+('D014', 'Population Science', 'F002'),
+('D015', 'Local Government and Urban Development', 'F002'),
+('D016', 'Sociology', 'F002');
+
+-- Faculty of Business Administration
+INSERT INTO `departments` (`department_id`, `name`, `faculty_id`) VALUES
+('D005', 'Accounting and Information Systems', 'F003'),
+('D006', 'Finance and Banking', 'F003'),
+('D007', 'Human Resource Management', 'F003'),
+('D008', 'Management', 'F003'),
+('D009', 'Marketing', 'F003');
+
+-- Faculty of Fine Arts
+INSERT INTO `departments` (`department_id`, `name`, `faculty_id`) VALUES
+('D017', 'Fine Arts', 'F004');
+
+-- Faculty of Arts
+INSERT INTO `departments` (`department_id`, `name`, `faculty_id`) VALUES
+('D018', 'Bangla Language and Literature', 'F005'),
+('D019', 'English Language and Literature', 'F005'),
+('D020', 'Music', 'F005'),
+('D021', 'Theatre and Performance Studies', 'F005'),
+('D022', 'Film and Media', 'F005'),
+('D023', 'Philosophy', 'F005');
+
+-- Faculty of Law
+INSERT INTO `departments` (`department_id`, `name`, `faculty_id`) VALUES
+('D024', 'Law and Justice', 'F006');
+
+
+
+
+CREATE TABLE `sections` (
+    `section_id` VARCHAR(20) NOT NULL,      -- Section ID (e.g., '2020-2021')
+    `department_id` VARCHAR(10) NOT NULL,   -- Department ID (e.g., 'D001')
+    `faculty_id` VARCHAR(10) NOT NULL,      -- Faculty ID (e.g., 'F001')
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Timestamp when the record is created
+    `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Timestamp when the record is updated
+    PRIMARY KEY (`section_id`, `department_id`, `faculty_id`),  -- Composite primary key
+    FOREIGN KEY (`department_id`) REFERENCES `departments`(`department_id`),  -- Foreign key to department table
+    FOREIGN KEY (`faculty_id`) REFERENCES `faculties`(`faculty_id`)   -- Foreign key to faculty table
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- For Faculty of Science and Engineering (F001)
+INSERT INTO `sections` (`section_id`, `department_id`, `faculty_id`, `created_at`) VALUES
+('2020-2021', 'D001', 'F001', CURRENT_TIMESTAMP),
+('2021-2022', 'D001', 'F001', CURRENT_TIMESTAMP),
+('2022-2023', 'D001', 'F001', CURRENT_TIMESTAMP),
+('2023-2024', 'D001', 'F001', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D002', 'F001', CURRENT_TIMESTAMP),
+('2021-2022', 'D002', 'F001', CURRENT_TIMESTAMP),
+('2022-2023', 'D002', 'F001', CURRENT_TIMESTAMP),
+('2023-2024', 'D002', 'F001', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D003', 'F001', CURRENT_TIMESTAMP),
+('2021-2022', 'D003', 'F001', CURRENT_TIMESTAMP),
+('2022-2023', 'D003', 'F001', CURRENT_TIMESTAMP),
+('2023-2024', 'D003', 'F001', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D004', 'F001', CURRENT_TIMESTAMP),
+('2021-2022', 'D004', 'F001', CURRENT_TIMESTAMP),
+('2022-2023', 'D004', 'F001', CURRENT_TIMESTAMP),
+('2023-2024', 'D004', 'F001', CURRENT_TIMESTAMP);
+
+-- For Faculty of Social Science (F002)
+INSERT INTO `sections` (`section_id`, `department_id`, `faculty_id`, `created_at`) VALUES
+('2020-2021', 'D010', 'F002', CURRENT_TIMESTAMP),
+('2021-2022', 'D010', 'F002', CURRENT_TIMESTAMP),
+('2022-2023', 'D010', 'F002', CURRENT_TIMESTAMP),
+('2023-2024', 'D010', 'F002', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D011', 'F002', CURRENT_TIMESTAMP),
+('2021-2022', 'D011', 'F002', CURRENT_TIMESTAMP),
+('2022-2023', 'D011', 'F002', CURRENT_TIMESTAMP),
+('2023-2024', 'D011', 'F002', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D012', 'F002', CURRENT_TIMESTAMP),
+('2021-2022', 'D012', 'F002', CURRENT_TIMESTAMP),
+('2022-2023', 'D012', 'F002', CURRENT_TIMESTAMP),
+('2023-2024', 'D012', 'F002', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D013', 'F002', CURRENT_TIMESTAMP),
+('2021-2022', 'D013', 'F002', CURRENT_TIMESTAMP),
+('2022-2023', 'D013', 'F002', CURRENT_TIMESTAMP),
+('2023-2024', 'D013', 'F002', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D014', 'F002', CURRENT_TIMESTAMP),
+('2021-2022', 'D014', 'F002', CURRENT_TIMESTAMP),
+('2022-2023', 'D014', 'F002', CURRENT_TIMESTAMP),
+('2023-2024', 'D014', 'F002', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D015', 'F002', CURRENT_TIMESTAMP),
+('2021-2022', 'D015', 'F002', CURRENT_TIMESTAMP),
+('2022-2023', 'D015', 'F002', CURRENT_TIMESTAMP),
+('2023-2024', 'D015', 'F002', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D016', 'F002', CURRENT_TIMESTAMP),
+('2021-2022', 'D016', 'F002', CURRENT_TIMESTAMP),
+('2022-2023', 'D016', 'F002', CURRENT_TIMESTAMP),
+('2023-2024', 'D016', 'F002', CURRENT_TIMESTAMP);
+
+-- For Faculty of Business Administration (F003)
+INSERT INTO `sections` (`section_id`, `department_id`, `faculty_id`, `created_at`) VALUES
+('2020-2021', 'D005', 'F003', CURRENT_TIMESTAMP),
+('2021-2022', 'D005', 'F003', CURRENT_TIMESTAMP),
+('2022-2023', 'D005', 'F003', CURRENT_TIMESTAMP),
+('2023-2024', 'D005', 'F003', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D006', 'F003', CURRENT_TIMESTAMP),
+('2021-2022', 'D006', 'F003', CURRENT_TIMESTAMP),
+('2022-2023', 'D006', 'F003', CURRENT_TIMESTAMP),
+('2023-2024', 'D006', 'F003', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D007', 'F003', CURRENT_TIMESTAMP),
+('2021-2022', 'D007', 'F003', CURRENT_TIMESTAMP),
+('2022-2023', 'D007', 'F003', CURRENT_TIMESTAMP),
+('2023-2024', 'D007', 'F003', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D008', 'F003', CURRENT_TIMESTAMP),
+('2021-2022', 'D008', 'F003', CURRENT_TIMESTAMP),
+('2022-2023', 'D008', 'F003', CURRENT_TIMESTAMP),
+('2023-2024', 'D008', 'F003', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D009', 'F003', CURRENT_TIMESTAMP),
+('2021-2022', 'D009', 'F003', CURRENT_TIMESTAMP),
+('2022-2023', 'D009', 'F003', CURRENT_TIMESTAMP),
+('2023-2024', 'D009', 'F003', CURRENT_TIMESTAMP);
+
+-- For Faculty of Fine Arts (F004)
+INSERT INTO `sections` (`section_id`, `department_id`, `faculty_id`, `created_at`) VALUES
+('2020-2021', 'D017', 'F004', CURRENT_TIMESTAMP),
+('2021-2022', 'D017', 'F004', CURRENT_TIMESTAMP),
+('2022-2023', 'D017', 'F004', CURRENT_TIMESTAMP),
+('2023-2024', 'D017', 'F004', CURRENT_TIMESTAMP);
+
+-- For Faculty of Arts (F005)
+INSERT INTO `sections` (`section_id`, `department_id`, `faculty_id`, `created_at`) VALUES
+('2020-2021', 'D018', 'F005', CURRENT_TIMESTAMP),
+('2021-2022', 'D018', 'F005', CURRENT_TIMESTAMP),
+('2022-2023', 'D018', 'F005', CURRENT_TIMESTAMP),
+('2023-2024', 'D018', 'F005', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D019', 'F005', CURRENT_TIMESTAMP),
+('2021-2022', 'D019', 'F005', CURRENT_TIMESTAMP),
+('2022-2023', 'D019', 'F005', CURRENT_TIMESTAMP),
+('2023-2024', 'D019', 'F005', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D020', 'F005', CURRENT_TIMESTAMP),
+('2021-2022', 'D020', 'F005', CURRENT_TIMESTAMP),
+('2022-2023', 'D020', 'F005', CURRENT_TIMESTAMP),
+('2023-2024', 'D020', 'F005', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D021', 'F005', CURRENT_TIMESTAMP),
+('2021-2022', 'D021', 'F005', CURRENT_TIMESTAMP),
+('2022-2023', 'D021', 'F005', CURRENT_TIMESTAMP),
+('2023-2024', 'D021', 'F005', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D022', 'F005', CURRENT_TIMESTAMP),
+('2021-2022', 'D022', 'F005', CURRENT_TIMESTAMP),
+('2022-2023', 'D022', 'F005', CURRENT_TIMESTAMP),
+('2023-2024', 'D022', 'F005', CURRENT_TIMESTAMP),
+
+('2020-2021', 'D023', 'F005', CURRENT_TIMESTAMP),
+('2021-2022', 'D023', 'F005', CURRENT_TIMESTAMP),
+('2022-2023', 'D023', 'F005', CURRENT_TIMESTAMP),
+('2023-2024', 'D023', 'F005', CURRENT_TIMESTAMP);
+
+-- For Faculty of Law (F006)
+INSERT INTO `sections` (`section_id`, `department_id`, `faculty_id`, `created_at`) VALUES
+('2020-2021', 'D024', 'F006', CURRENT_TIMESTAMP),
+('2021-2022', 'D024', 'F006', CURRENT_TIMESTAMP),
+('2022-2023', 'D024', 'F006', CURRENT_TIMESTAMP),
+('2023-2024', 'D024', 'F006', CURRENT_TIMESTAMP);
+
+
+
+CREATE TABLE `student_info` (
+  `studentId` VARCHAR(10) NOT NULL CHECK (CHAR_LENGTH(studentId) = 8),
+  `registerId` VARCHAR(255) NOT NULL CHECK (CHAR_LENGTH(registerId) = 4),
+  `session_id` VARCHAR(20) NOT NULL,
+  `firstName` VARCHAR(50) NOT NULL,
+  `middleName` VARCHAR(50) DEFAULT NULL,
+  `lastName` VARCHAR(50) NOT NULL,
+  `facultyName` VARCHAR(50) NOT NULL,
+  `departmentName` VARCHAR(50) NOT NULL,
+  `gender` ENUM('Male', 'Female', 'Other') NOT NULL,
+  `dob` DATE NOT NULL,
+  `studentContact` VARCHAR(15) NOT NULL,
+  `address` TEXT NOT NULL,
+  `fatherName` VARCHAR(50) NOT NULL,
+  `motherName` VARCHAR(50) NOT NULL,
+  `parentContact` VARCHAR(15) NOT NULL,
+  `parentAddress` TEXT NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Column to store the record creation time
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  -- Column to store last update time
+  PRIMARY KEY (`studentId`, `registerId`)  -- Composite Primary Key on studentId and registerId
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `student_info` 
+(`studentId`, `registerId`, `session_id`, `firstName`, `middleName`, `lastName`, 
+`facultyName`, `departmentName`, `gender`, `dob`, `studentContact`, `address`, 
+`fatherName`, `motherName`, `parentContact`, `parentAddress`, `created_at`, `updated_at`) 
+VALUES
+('21000001', '0001', 'S001', 'John', 'A', 'Doe', 
+ 'Faculty of Science', 'Computer Science', 'Male', '2000-01-15', '1234567890', 
+ '123 Main St, City, Country', 'Robert Doe', 'Jane Doe', '0987654321', 
+ '456 Oak St, City, Country', '2024-11-12 08:30:00', '2024-11-12 08:30:00'),
+
+('21000002', '0002', 'S002', 'Alice', 'B', 'Smith', 
+ 'Faculty of Arts', 'English Literature', 'Female', '2000-03-20', '2345678901', 
+ '456 High St, City, Country', 'William Smith', 'Linda Smith', '1234509876', 
+ '789 Pine St, City, Country', '2024-11-12 09:00:00', '2024-11-12 09:00:00'),
+
+('21000003', '0003', 'S003', 'Michael', 'C', 'Johnson', 
+ 'Faculty of Engineering', 'Mechanical Engineering', 'Male', '1999-07-10', '3456789012', 
+ '789 Low St, City, Country', 'Charles Johnson', 'Patricia Johnson', '2345612345', 
+ '321 Birch St, City, Country', '2024-11-12 09:30:00', '2024-11-12 09:30:00'),
+
+('21000004', '0004', 'S004', 'Sophia', 'D', 'Williams', 
+ 'Faculty of Business', 'Marketing', 'Female', '2001-11-25', '4567890123', 
+ '321 River St, City, Country', 'David Williams', 'Margaret Williams', '3456723456', 
+ '654 Maple St, City, Country', '2024-11-12 10:00:00', '2024-11-12 10:00:00'),
+
+('21000005', '0005', 'S005', 'James', 'E', 'Brown', 
+ 'Faculty of Law', 'Criminal Law', 'Male', '1998-05-30', '5678901234', 
+ '987 Hill St, City, Country', 'George Brown', 'Elizabeth Brown', '4567834567', 
+ '987 Cedar St, City, Country', '2024-11-12 10:30:00', '2024-11-12 10:30:00');
+
+
+
+
+
+CREATE TABLE student_account (
+    studentId VARCHAR(10) NOT NULL CHECK (CHAR_LENGTH(studentId) = 8),
+    registerId VARCHAR(255) NOT NULL CHECK (CHAR_LENGTH(registerId) = 4),
+    facultyName VARCHAR(255) NOT NULL,
+    departmentName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (studentId, registerId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `student_account` (`studentId`, `registerId`, `facultyName`, `departmentName`, `email`, `password`, `created_at`, `updated_at`) VALUES
+('21102042', '9909', 'Faculty of Science and Engineering', 'Electrical Engineering', 'johndoe@example.com', '$2y$10$WcBoM0r9Vdq3U4gsyguqLTx1s0RbeDBb6rUjcVsI.vl6OIEpewnjG', '2024-11-12 02:10:24', '2024-11-12 02:10:24'),
+('21102043', '9910', 'Faculty of Arts', 'Psychology', 'janedoe@example.com', '$2y$10$O1zT0BGN9hgZ7kZlKShAduAgnGpmGVBvZB0JmDTe9jt2ZZeC2l6QS', '2024-11-12 02:15:44', '2024-11-12 02:15:44'),
+('21102044', '9911', 'Faculty of Business Administration', 'Marketing', 'alexsmith@example.com', '$2y$10$GQZZm5mjzjkpTeUyF.Erg/x0hJVo5x0boVSj2gQfyfpwXWeRQakBi', '2024-11-12 02:20:12', '2024-11-12 02:20:12'),
+('21102045', '9912', 'Faculty of Social Sciences', 'Sociology', 'emilyjones@example.com', '$2y$10$Rlq5B0KrIH1HoGJBeqUjj1yJkrt53AkhGh2JEmsh06oHNdEvZdzsC', '2024-11-12 02:25:33', '2024-11-12 02:25:33'),
+('21102046', '9913', 'Faculty of Law', 'Criminal Law', 'michaelbrown@example.com', '$2y$10$eLv.R5tqkaoOasbcF1mkwE9kxwPihEqoL5VvlICIQXiecsL2c0f8q', '2024-11-12 02:30:18', '2024-11-12 02:30:18');
+
+
+
+
+CREATE TABLE applications (
+  id INT AUTO_INCREMENT PRIMARY KEY,                -- Unique application ID
+  studentId INT NOT NULL,                           -- Student ID (linked to student table, assuming it exists)
+  registerId INT NOT NULL,                          -- Register ID (linked to student table)
+  facultyName VARCHAR(255) NOT NULL,                -- Faculty Name
+  departmentName VARCHAR(255) NOT NULL,             -- Department Name
+  session_id VARCHAR(255) NOT NULL,                         -- Session ID (linked to session or semester)
+  apply_type VARCHAR(255) NOT NULL,    -- Application type (Transcript or Certificate)
+  semester_id VARCHAR(255),                                  -- Semester ID (only for 'transcript' type)
+  amount DECIMAL(10, 2),                     -- Transcript fee
+  payment_type VARCHAR(255) NOT NULL,
+  previous_transcript_image BLOB,                    -- Store the previous transcript image (if uploaded)
+  image_file BLOB NOT NULL,                          -- Store the uploaded image file (for transcript/certificate)
+  application_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Date when the application was submitted
+  apply_status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending' ,
+  status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending'  -- Status of the applicatio
+)
+
+
+
+CREATE TABLE payments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  studentId VARCHAR(255) NOT NULL,                           -- Assuming an INT type for student ID
+  registerId VARCHAR(255) NOT NULL, 
+  apply_type VARCHAR(255) NOT NULL,                 -- Application type (Transcript or Certificate)
+  payment_type ENUM('Online', 'Offline') NOT NULL,       -- Restricted values for payment type
+  payment_method VARCHAR(255) NOT NULL,      --('Bkash', 'Nagad', 'Credit Card') values for payment method
+  transaction_id VARCHAR(255) NOT NULL,
+  semester_id VARCHAR(10) ,
+  amount DECIMAL(10, 2) NOT NULL,                          -- Using DECIMAL for currency
+  image_file BLOB,
+  payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending'
+);
+
+
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` varchar(100) NOT NULL DEFAULT 'admin',
+  `role_type` enum('superAdmin','facultyAdmin','departmentAdmin') NOT NULL,
+  `faculty_id` varchar(20) DEFAULT NULL,
+  `department_id` varchar(20) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `name`, `email`, `password`, `role`, `role_type`, `faculty_id`, `department_id`, `created_at`, `updated_at`) VALUES
+(2, 'Super Admin', 'superadmin@example.com', 'hashed_password_superadmin', 'admin', 'superAdmin', NULL, NULL, '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(3, 'Faculty Admin 1', 'facultyadmin1@example.com', 'hashed_password_faculty_1', 'admin', 'facultyAdmin', 'F001', NULL, '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(4, 'Faculty Admin 2', 'facultyadmin2@example.com', 'hashed_password_faculty_2', 'admin', 'facultyAdmin', 'F002', NULL, '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(5, 'Faculty Admin 3', 'facultyadmin3@example.com', 'hashed_password_faculty_3', 'admin', 'facultyAdmin', 'F003', NULL, '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(6, 'Faculty Admin 4', 'facultyadmin4@example.com', 'hashed_password_faculty_4', 'admin', 'facultyAdmin', 'F004', NULL, '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(7, 'Faculty Admin 5', 'facultyadmin5@example.com', 'hashed_password_faculty_5', 'admin', 'facultyAdmin', 'F005', NULL, '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(8, 'Faculty Admin 6', 'facultyadmin6@example.com', 'hashed_password_faculty_6', 'admin', 'facultyAdmin', 'F006', NULL, '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(9, 'Department Admin D001', 'admin@example.com', 'admin12345', 'admin', 'departmentAdmin', 'F001', 'D001', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(10, 'Department Admin D002', 'deptadminD002@example.com', 'hashed_password_department_2', 'admin', 'departmentAdmin', 'F001', 'D002', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(11, 'Department Admin D003', 'deptadminD003@example.com', 'hashed_password_department_3', 'admin', 'departmentAdmin', 'F001', 'D003', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(12, 'Department Admin D004', 'deptadminD004@example.com', 'hashed_password_department_4', 'admin', 'departmentAdmin', 'F001', 'D004', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(13, 'Department Admin D005', 'deptadminD005@example.com', 'hashed_password_department_5', 'admin', 'departmentAdmin', 'F001', 'D005', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(14, 'Department Admin D006', 'deptadminD006@example.com', 'hashed_password_department_6', 'admin', 'departmentAdmin', 'F002', 'D006', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(15, 'Department Admin D007', 'deptadminD007@example.com', 'hashed_password_department_7', 'admin', 'departmentAdmin', 'F002', 'D007', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(16, 'Department Admin D008', 'deptadminD008@example.com', 'hashed_password_department_8', 'admin', 'departmentAdmin', 'F002', 'D008', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(17, 'Department Admin D009', 'deptadminD009@example.com', 'hashed_password_department_9', 'admin', 'departmentAdmin', 'F002', 'D009', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(18, 'Department Admin D010', 'deptadminD010@example.com', 'hashed_password_department_10', 'admin', 'departmentAdmin', 'F002', 'D010', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(19, 'Department Admin D011', 'deptadminD011@example.com', 'hashed_password_department_11', 'admin', 'departmentAdmin', 'F003', 'D011', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(20, 'Department Admin D012', 'deptadminD012@example.com', 'hashed_password_department_12', 'admin', 'departmentAdmin', 'F003', 'D012', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(21, 'Department Admin D013', 'deptadminD013@example.com', 'hashed_password_department_13', 'admin', 'departmentAdmin', 'F003', 'D013', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(22, 'Department Admin D014', 'deptadminD014@example.com', 'hashed_password_department_14', 'admin', 'departmentAdmin', 'F003', 'D014', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(23, 'Department Admin D015', 'deptadminD015@example.com', 'hashed_password_department_15', 'admin', 'departmentAdmin', 'F003', 'D015', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(24, 'Department Admin D016', 'deptadminD016@example.com', 'hashed_password_department_16', 'admin', 'departmentAdmin', 'F004', 'D016', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(25, 'Department Admin D017', 'deptadminD017@example.com', 'hashed_password_department_17', 'admin', 'departmentAdmin', 'F004', 'D017', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(26, 'Department Admin D018', 'deptadminD018@example.com', 'hashed_password_department_18', 'admin', 'departmentAdmin', 'F004', 'D018', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(27, 'Department Admin D019', 'deptadminD019@example.com', 'hashed_password_department_19', 'admin', 'departmentAdmin', 'F004', 'D019', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(28, 'Department Admin D020', 'deptadminD020@example.com', 'hashed_password_department_20', 'admin', 'departmentAdmin', 'F004', 'D020', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(29, 'Department Admin D021', 'deptadminD021@example.com', 'hashed_password_department_21', 'admin', 'departmentAdmin', 'F005', 'D021', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(30, 'Department Admin D022', 'deptadminD022@example.com', 'hashed_password_department_22', 'admin', 'departmentAdmin', 'F005', 'D022', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(31, 'Department Admin D023', 'deptadminD023@example.com', 'hashed_password_department_23', 'admin', 'departmentAdmin', 'F005', 'D023', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(32, 'Department Admin D024', 'deptadminD024@example.com', 'hashed_password_department_24', 'admin', 'departmentAdmin', 'F006', 'D024', '2025-04-05 10:40:29', '2025-04-05 10:40:29'),
+(33, '', '', '', 'admin', '', NULL, NULL, '2025-04-09 11:22:40', '2025-04-09 11:22:40');
+
+
+
+
+user Account: email: mgrahul639@gmail.com
+              password: Mg@12345
+
+user Account: email: test@gmail.com
+              password: Mg123456$
+
+user not complete the register: email: saad@gmail.com 
+                                password: Mg@12346
