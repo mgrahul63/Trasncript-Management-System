@@ -38,15 +38,16 @@ switch ($method) {
         $email = $input->email;
         $password = $input->password;
 
-        if(
-            $email === 'cse@example.com' && $password === 'admin12345' ||
-            $email === 'eee@example.com' && $password === 'admin12345' ||
-            $email === 'stat@example.com' && $password === 'admin12345' ||
-            $email === 'facultyadmin1@example.com' && $password === 'hashed_password_faculty_1' || 
-            $email === 'register@example.com' && $password === 'admin12345' || 
-            $email === 'accounter@example.com' && $password === 'admin12345' 
-            )
-        {
+        $admins = [
+                    'cse@example.com' => 'admin12345',
+                    'eee@example.com' => 'admin12345',
+                    'stat@example.com' => 'admin12345',
+                    'register@example.com' => 'admin12345',
+                    'accounter@example.com' => 'admin12345',
+                    'admin@example.com' => 'admin12345',
+                ];
+
+        if (isset($admins[$email]) && $admins[$email] === $password) {
             $issuedAt = time();
             $expirationTime = $issuedAt + 3600;  // jwt valid for 1 hour from the issued time
             

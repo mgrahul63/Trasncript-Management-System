@@ -1,0 +1,19 @@
+
+user Account: email: mgrahul639@gmail.com
+              password: Mg@12345
+
+user Account: email: test@gmail.com
+              password: Mg123456$
+
+user not complete the register: email: saad@gmail.com 
+                                password: Mg@12346
+
+
+
+admin log:
+cse dept:   cse@example.com 
+            admin12345
+
+register:   register@example.com
+            admin12345
+

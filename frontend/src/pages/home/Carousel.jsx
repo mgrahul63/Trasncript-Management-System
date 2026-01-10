@@ -37,7 +37,7 @@ const Carousel = () => {
         backgroundSize: "cover", // Ensures image covers the area
         width: "100%",
         height: "600px", // Fixed height
-        objectFit:'contain'
+        objectFit: "contain",
       }}
     >
       {/* Dark overlay for better text contrast */}

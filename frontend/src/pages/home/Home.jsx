@@ -1,7 +1,3 @@
-import AutoCloseAlert from "../../components/Auto-Close-Alert";
-import ConfirmationAlert from "../../components/ConfirmationAlert";
-import SweetAlert from "../../components/SweetAlert";
-import UserPrompt from "../../components/UserPrompt";
 import Carousel from "./Carousel";
 import RecentNews from "./RecentNews";
 import VersityInfo from "./VersityInfo";
@@ -14,10 +10,10 @@ const Home = () => {
 
       <VersityInfo />
       <RecentNews />
-      <SweetAlert />
+      {/* <SweetAlert />
       <ConfirmationAlert />
       <UserPrompt />
-      <AutoCloseAlert />
+      <AutoCloseAlert /> */}
     </div>
   );
 };
