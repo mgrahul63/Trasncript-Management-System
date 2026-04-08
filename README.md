@@ -89,8 +89,8 @@ Students can apply for transcripts, view assignments, attend online exams, and c
 ## 🖼 Project Screenshots
 
 ![Student Dashboard](project-pictures/student-dashboard.png)
-![Admin Dashboard](project-pictures/register-dashboard)  
-![Transcript Application](project-pictures/student-transcript-apply)
+![Admin Dashboard](project-pictures/register-dashboard.png)  
+![Transcript Application](project-pictures/student-transcript-apply.png)
 
 ---
 
